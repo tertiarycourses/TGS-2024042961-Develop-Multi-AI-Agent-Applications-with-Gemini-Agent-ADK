@@ -21,7 +21,7 @@ class Recipe(BaseModel):
 # --- Agent with Structured Output ---
 root_agent = Agent(
     name="recipe_agent",
-    model="gemini-2.0-flash",
+    model="gemini-3.5-flash",
     description="An agent that creates detailed recipes in structured format.",
     instruction=(
         "You are an agent for creating recipes. You will be given the name of a food and your job "

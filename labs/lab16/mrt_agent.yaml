@@ -1,5 +1,5 @@
 name: mrt_agent
-model: gemini-2.0-flash
+model: gemini-3.1-flash-lite
 description: Agent specialized in providing MRT routes in Singapore.
 instruction: |
   You are an MRT Route Research Agent specialized in Singapore's MRT system.

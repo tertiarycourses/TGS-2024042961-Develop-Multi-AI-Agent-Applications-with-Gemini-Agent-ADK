@@ -118,7 +118,7 @@ def tavily_search(query: str) -> dict:
 # --- Agent Definition with Guardrail ---
 root_agent = Agent(
     name="guarded_agent",
-    model="gemini-2.0-flash",
+    model="gemini-3.1-flash-lite",
     description="Agent with guardrail that blocks certain keywords.",
     instruction=(
         "You are a helpful agent with two tools. "

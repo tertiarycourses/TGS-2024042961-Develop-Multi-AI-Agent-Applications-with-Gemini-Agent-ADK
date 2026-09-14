@@ -1,5 +1,5 @@
 name: bike_agent
-model: gemini-2.5-flash
+model: gemini-3.1-flash-lite
 agent_class: LlmAgent
 description: An agent specialized in providing biking directions in Singapore.
 instruction: >

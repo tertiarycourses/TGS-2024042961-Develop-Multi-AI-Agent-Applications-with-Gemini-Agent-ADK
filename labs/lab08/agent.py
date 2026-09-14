@@ -22,7 +22,7 @@ if not google_api_key:
     raise ValueError("GOOGLE_API_KEY is not set in the environment variables")
 
 # Model constant
-MODEL = "gemini-2.0-flash"
+MODEL = "gemini-3.1-flash-lite"
 
 
 # ---------- SPECIALIZED SUB-AGENTS ----------

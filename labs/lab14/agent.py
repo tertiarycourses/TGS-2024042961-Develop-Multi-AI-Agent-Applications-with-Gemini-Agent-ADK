@@ -165,7 +165,7 @@ initialize_vector_db()
 # Create the RAG agent
 root_agent = Agent(
     name="rag_agent",
-    model="gemini-2.0-flash",
+    model="gemini-3.1-flash-lite",
     description="RAG agent that answers questions about air fryer product and warranty using vector search.",
     instruction="""
     You are a helpful assistant that answers questions about the air fryer product and warranty.

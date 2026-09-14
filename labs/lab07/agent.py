@@ -7,7 +7,7 @@ load_dotenv(dotenv_path=env_path)
 
 from google.adk.agents import Agent
 
-MODEL = "gemini-2.0-flash"
+MODEL = "gemini-3.1-flash-lite"
 
 # Sub-agent: Translates jokes into Chinese
 translator_agent = Agent(
