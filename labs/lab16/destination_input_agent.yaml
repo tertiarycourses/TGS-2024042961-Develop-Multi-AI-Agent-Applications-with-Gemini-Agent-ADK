@@ -1,5 +1,5 @@
 name: destination_input_agent
-model: gemini-2.0-flash
+model: gemini-3.1-flash-lite
 description: Agent that greets the user and collects origin and destination locations.
 instruction: |
   You are the Location Input Agent.

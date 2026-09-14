@@ -8,7 +8,7 @@ load_dotenv(dotenv_path=env_path)
 from google.adk.agents import LlmAgent, SequentialAgent
 from google.adk.tools import google_search
 
-MODEL = "gemini-2.0-flash"
+MODEL = "gemini-3.1-flash-lite"
 
 # Sub-agent 1: Greets user and asks for stock ticker
 destination_input_agent = LlmAgent(

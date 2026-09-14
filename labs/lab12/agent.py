@@ -34,7 +34,7 @@ async def create_agent_with_mcp():
     # Create agent with MCP tools
     agent = Agent(
         name="n8n_mcp_agent",
-        model="gemini-2.0-flash",
+        model="gemini-3.1-flash-lite",
         description="An agent that uses n8n MCP server tools.",
         instruction=(
             "You are an intelligent assistant. Use the tools exposed by the MCP server "
@@ -49,7 +49,7 @@ async def create_agent_with_mcp():
 # --- For ADK CLI compatibility ---
 root_agent = Agent(
     name="n8n_mcp_agent",
-    model="gemini-2.0-flash",
+    model="gemini-3.1-flash-lite",
     description="An agent that uses n8n MCP server tools.",
     instruction=(
         "You are an intelligent assistant. Use the tools exposed by the MCP server "

@@ -35,7 +35,7 @@ async def create_agent_with_mcp_sse():
     # Create agent with MCP tools
     agent = Agent(
         name="mcp_sse_agent",
-        model="gemini-2.0-flash",
+        model="gemini-3.1-flash-lite",
         description="An agent that uses MCP SSE server tools.",
         instruction=(
             "You are an intelligent assistant. Use the tools exposed by the MCP server "
@@ -50,7 +50,7 @@ async def create_agent_with_mcp_sse():
 # --- For ADK CLI compatibility ---
 root_agent = Agent(
     name="mcp_sse_agent",
-    model="gemini-2.0-flash",
+    model="gemini-3.1-flash-lite",
     description="An agent that uses MCP SSE server tools.",
     instruction=(
         "You are an intelligent assistant. Use the tools exposed by the MCP server "
