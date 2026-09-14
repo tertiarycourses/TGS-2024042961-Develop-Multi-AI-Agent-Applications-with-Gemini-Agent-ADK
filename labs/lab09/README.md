@@ -33,9 +33,9 @@ uv run adk web              # browser IDE, then pick lab09 at http://localhost:8
 ## Agent scripts in this lab
 
 - `agent.py` — the default agent loaded by `adk run lab09`
-- `agent_as_tool.py`
-- `agent_loop.py`
-- `agent_parallel.py`
+- `agent_as_tool.py` — Lab 09d — Agent-as-a-Tool: A Report Writer with Specialist Services
+- `agent_loop.py` — Lab 09c — Loop Workflow: A Writer / Critic Refinement Cycle
+- `agent_parallel.py` — Lab 09b — Parallel Workflow: A Market Research Desk
 
 Open `uv run adk web` and select the script you want to run.
 
