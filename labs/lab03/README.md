@@ -34,7 +34,11 @@ uv run adk web              # browser IDE, then pick lab03 at http://localhost:8
 
 1. Register for a free OpenWeather API key at openweathermap.org and a Tavily key at tavily.com
 
-2. Add both keys to labs/.env as OPENWEATHER_API_KEY and TAVILY_API_KEY
+2. Add both keys to labs/.env
+
+   ```bash
+   OPENWEATHER_API_KEY / TAVILY_API_KEY
+   ```
 
 3. Read the two tool functions and note the docstring, the typed arguments and the dict return
 
