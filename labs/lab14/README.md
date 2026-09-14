@@ -2,7 +2,7 @@
 
 **Topic 03:** Build Agentic AI RAG in Gemini ADK  
 **Learning outcome:** LO4 / LO3 — wrap retrieval as a tool so the agent grounds its answers in your documents.  
-**Tools:** google-adk, ChromaDB, similarity search, Gemini 2.0 Flash
+**Tools:** google-adk, ChromaDB, similarity search, Gemini 3.8 Flash
 
 ## Goal
 
@@ -32,13 +32,14 @@ uv run adk web              # browser IDE, then pick lab14 at http://localhost:8
 
 ## Step-by-step
 
-1. Read the retrieval tool and note how the query is embedded before searching
+1. Read the retrieval tool and how the query is embedded
 
    ```bash
    cat lab14/agent.py
    ```
 
-2. Note the instruction that requires answers to come only from retrieved context
+2. Answers must come only from retrieved context
+
 3. Run the RAG agent
 
    ```bash
@@ -77,4 +78,4 @@ Both document questions are answered with the correct source and page cited, the
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

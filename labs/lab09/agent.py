@@ -1,3 +1,21 @@
+"""Lab 09 — Sequential Workflow: A Travel Planner Pipeline.
+
+A realistic trip-planning assistant. Three specialists run in a FIXED order,
+each writing its result into session state for the next one to read:
+
+    destination_researcher  ->  itinerary_planner  ->  budget_analyst
+
+Pattern: SequentialAgent (https://adk.dev/workflows/collaboration/).
+
+The key contrast with lab07: there, the *model* decided each handoff. Here the
+ORDER IS GUARANTEED BY CODE. Use SequentialAgent whenever a stage genuinely
+cannot run before the previous one has finished — you never want the budget
+computed before the itinerary exists.
+
+`output_key` writes each agent's final text into session state, and the next
+agent reads it back through the {curly_brace} placeholders in its instruction.
+"""
+
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -8,90 +26,101 @@ load_dotenv(dotenv_path=env_path)
 from google.adk.agents import LlmAgent, SequentialAgent
 from google.adk.tools import google_search
 
-MODEL = "gemini-3.1-flash-lite"
+MODEL = "gemini-3.8-flash"
 
-# Sub-agent 1: Greets user and asks for stock ticker
-destination_input_agent = LlmAgent(
+
+# ---------- STAGE 1: research the destination ----------
+
+destination_researcher = LlmAgent(
     model=MODEL,
-    name="destination_input_agent",
-    description="Agent that greets the user and collects a location of interest.",
-    instruction="""You are the location Input agent.
+    name="destination_researcher",
+    description="Researches a destination's attractions, seasonality and travel basics.",
+    instruction="""You are a travel research analyst.
 
-Greet the user warmly and introduce yourself as the Route Planner Agent
-Explain that you can help to find the fastest route for various transport methods (e.g., MRT, BUS, TAXI, CYCLING, WALKING).
-Ask the user to provide a current Location and a destination location
-Once the user provides their location as well as the destination, extract the locations and confirm it with the user.
-Store the location in your response so it can be passed to the next agent.""",
-)
+The traveller will name a destination and trip length. Use the google_search
+tool to gather current, factual information:
 
-# Sub-agent 2: Searches and synthesizes stock information
-flight_research_agent = LlmAgent(
-    model=MODEL,
-    name="cross_country_research_agent",
-    description="Agent that researches information route between 2 countries and chooses the most cost to time efficient route.",
-    instruction="""You are a cross country Research agent specialized in getting the best flight between 2 countries.
+- The 5-6 highest-value attractions, with the typical visit duration of each
+- The weather and seasonality for the travel period
+- Local transport options and roughly what they cost
+- One practical warning (a closure, a scam, a permit that must be booked ahead)
 
-Base all timing related considerations to the system time of SINGAPORE.
+Output a structured "DESTINATION BRIEF" in Markdown. Report facts only —
+do not build a day-by-day plan; that is the next agent's job.
 
-Check both location using the google_search tool on whether the location is valid in SINGAPORE, if the user provides both locations within SINGAPORE, proceed to Store the locations in your response so it can be passed to the next agent.
-
-Otherwise, using the google_search tool, identify the country of both locations and gather the following information:
-- Methods to get from country of the current location to the country of the destination location
-- Cost of each method
-- Time taken for each method
-- Any significant events or announcements
-
-Store the 2 location in your response along with the most optimal route for cost to time spend ratio across country so it can be passed to the next agent.
+If the traveller has not given a destination and trip length, ask for both
+before researching.
 """,
     tools=[google_search],
+    output_key="destination_brief",
 )
 
-# Sub-agent 2: Searches and synthesizes stock information
-route_research_agent = LlmAgent(
+
+# ---------- STAGE 2: build the itinerary from that research ----------
+
+itinerary_planner = LlmAgent(
     model=MODEL,
-    name="route_research_agent",
-    description="Agent that researches route information and creates the most time efficient route.",
-    instruction="""You are a Route Research agent specialized in transportation planning.
+    name="itinerary_planner",
+    description="Turns a destination brief into a realistic day-by-day itinerary.",
+    instruction="""You are an itinerary planner.
 
-Base all timing related considerations to the current time of the country of interest.
+Here is the research brief prepared for this trip:
 
-If you dont receive any information regarding cross country travel from the previous agent, take the current location and destination location provided by the previous agent, starting from the given current location, and use the google_search tool to gather:
-- Latest route information and travel times for various transport methods (TRAIN/MRT, BUS, TAXI, WALK)
-- Traffic conditions and delays
-- Alternative routes and options
-- Public transport schedules and availability
+{destination_brief}
 
-After gathering information, synthesize everything into a comprehensive, well-formatted report that includes:
-1. **By Bus** - A route from the current location to the destination strictly by bus only
-2. **By MRT/Train** - A route from the current location to the destination strictly by MRT/Train only
-3. **By Taxi** - A route from the current location to the destination strictly by taxi
-4. **By Cycling** - A route from the current location to the destination strictly by cycling/biking
-5. **By Walking** - A route from the current location to the destination strictly by walking
-6. **Fastest Route** - A route from the current location to the destination by all means of transport available in SINGAPORE while optimizing the best cost to time spent ratio.
+Build a day-by-day itinerary from it. For each day give:
+- A morning, afternoon and evening block
+- Travel time between locations
+- One recommended meal stop
 
-Present the information in a clear, professional format that would be concise for a person who is in a rush.""",
-    tools=[google_search],
+Rules:
+- Group attractions that are geographically close on the same day.
+- Do not schedule more than three major attractions in one day.
+- Use ONLY attractions named in the brief above.
+
+Output as "ITINERARY" in Markdown, with one sub-heading per day.
+""",
+    output_key="itinerary",
 )
 
-# Workflow agent: Sequential orchestration of the two sub-agents
-transport_workflow_agent = SequentialAgent(
-    name="transport_workflow_agent",
-    description="Sequential workflow that collects a Destination and Current Location, and then researches it.",
-    sub_agents=[destination_input_agent, flight_research_agent,route_research_agent],
-)
 
-# Root agent: Greets user and transfers to workflow
-root_agent = LlmAgent(
+# ---------- STAGE 3: cost the finished itinerary ----------
+
+budget_analyst = LlmAgent(
     model=MODEL,
-    name="root_agent",
-    description="Root agent that introduces route planning capabilities and delegates to workflow.",
-    instruction="""You are a friendly Route Planning Assistant.
+    name="budget_analyst",
+    description="Produces a per-traveller cost breakdown for a finished itinerary.",
+    instruction="""You are a travel budget analyst.
 
-When the user first interacts with you:
-1. Greet them warmly
-2. Introduce yourself and explain that you can help them plan routes in Singapore
-3. Mention that you have a specialized Route Planner agent that will help gather their destination and current location and provide detailed route information
+Here is the planned itinerary:
 
-After your introduction, transfer control to the transport_workflow_agent to begin the analysis process.""",
-    sub_agents=[transport_workflow_agent],
+{itinerary}
+
+Produce a realistic cost estimate per traveller in SGD, broken down into:
+- Accommodation (per night x nights)
+- Attractions and entrance fees
+- Local transport
+- Food (per day estimate)
+
+Then give a TOTAL, plus a budget and a comfortable variant of that total.
+
+End with two concrete suggestions for cutting the cost without removing a
+major attraction. Output as "BUDGET" in Markdown with a costs table.
+""",
+    output_key="budget",
 )
+
+
+# ---------- THE PIPELINE ----------
+# SequentialAgent guarantees research -> itinerary -> budget, in that order.
+
+travel_planning_pipeline = SequentialAgent(
+    name="travel_planning_pipeline",
+    description=(
+        "Runs the full trip-planning workflow: research the destination, build "
+        "the itinerary, then cost it."
+    ),
+    sub_agents=[destination_researcher, itinerary_planner, budget_analyst],
+)
+
+root_agent = travel_planning_pipeline

@@ -71,7 +71,7 @@ def tavily_search(query: str) -> dict:
 
 root_agent = Agent(
     name="assistant_agent",
-    model="gemini-3.1-flash-lite",
+    model="gemini-3.8-flash",
     description="Agent that can answer weather questions and search the web.",
     instruction=(
         "You are a helpful agent with two tools. "

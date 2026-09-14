@@ -8,7 +8,7 @@ load_dotenv(dotenv_path=env_path)
 from google.adk.agents import Agent
 
 root_agent = Agent(
-    model='gemini-3.1-flash-lite',
+    model='gemini-3.8-flash',
     name='root_agent',
     description='A helpful assistant for user questions.',
     instruction='''

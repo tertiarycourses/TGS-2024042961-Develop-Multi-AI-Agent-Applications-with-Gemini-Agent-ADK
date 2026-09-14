@@ -33,12 +33,19 @@ uv run adk web              # browser IDE, then pick lab15 at http://localhost:8
 ## Step-by-step
 
 1. Write eight test questions: six answerable from the PDFs, two deliberately out of scope
+
 2. For each question record whether the correct chunk was retrieved (retrieval hit)
-3. For each answer record whether every claim is supported by the retrieved text (groundedness)
+
+3. Record whether every claim is grounded in the retrieved text
+
 4. Record whether the answer actually addresses the question (relevance) and its response time
+
 5. Compute the hit rate, groundedness rate and mean latency across the eight questions
+
 6. Tune one parameter — chunk size, n_results, or switch similarity search to MMR
+
 7. Re-run the same eight questions and recompute all three metrics
+
 8. State which parameter change you would keep and justify it with your numbers
 
 ## Test it
@@ -47,4 +54,4 @@ A completed evaluation table with before-and-after figures for retrieval hit rat
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

@@ -1,4 +1,4 @@
-# Lab 18 — Capstone — Design, Build and Assess Your Own Multi-Agent Application
+# Lab 18 — Capstone — Build Your Own Multi-Agent Application
 
 **Topic 04:** Build an Agentic AI App with Gemini Agent ADK and Streamlit  
 **Learning outcome:** LO1 / LO2 / LO3 / LO4 — design a multi-agent solution and assess its feasibility.  
@@ -33,13 +33,21 @@ uv run adk web              # browser IDE, then pick lab18 at http://localhost:8
 ## Step-by-step
 
 1. Form a group of three to five and choose an industrial use case from your own sector
+
 2. Identify the specialist roles and draw the agent topology — coordinator or sequential
+
 3. List the tools each agent needs and which are custom functions versus built-in
-4. Build the agents, starting from the closest lab in this course as your template
+
+4. Build the agents, using the closest lab as your template
+
 5. Add session memory so the application handles multi-turn conversations
+
 6. Add a guardrail or a structured output schema appropriate to your use case
+
 7. Test with at least five realistic prompts and record where the agent fails
+
 8. Assess feasibility: accuracy, latency, token cost, maintainability and governance risk
+
 9. Present the application and the feasibility assessment to the class in five minutes
 
 ## Test it
@@ -48,4 +56,4 @@ A running application with three or more agents and two or more tools, demonstra
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

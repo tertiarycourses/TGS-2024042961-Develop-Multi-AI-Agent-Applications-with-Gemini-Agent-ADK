@@ -19,9 +19,23 @@ class Recipe(BaseModel):
 
 
 # --- Agent with Structured Output ---
+#
+# MODEL CHOICE MATTERS HERE — DO NOT BULK-SWAP THIS LINE.
+#
+# Structured output is a MODEL CAPABILITY, not just a config flag. On a "lite"
+# tier (e.g. gemini-3.1-flash-lite) this exact agent returns an empty JSON
+# object and exits 0 — no error, no warning, no traceback:
+#
+#     [recipe_agent]: {
+#     }
+#
+# That silent failure is far worse than a crash, because the lab looks like it
+# ran. Use a full Flash tier or better, and if you change this model, actually
+# run the lab and confirm all five fields come back populated and correctly
+# typed before committing.
 root_agent = Agent(
     name="recipe_agent",
-    model="gemini-3.5-flash",
+    model="gemini-3.8-flash",
     description="An agent that creates detailed recipes in structured format.",
     instruction=(
         "You are an agent for creating recipes. You will be given the name of a food and your job "

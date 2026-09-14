@@ -38,7 +38,8 @@ uv run adk web              # browser IDE, then pick lab11 at http://localhost:8
    cat lab11/agent.py
    ```
 
-2. Note the typed fields: title, ingredients, cooking_time, servings, instructions
+2. Note the five typed fields on the Recipe model
+
 3. Run the agent
 
    ```bash
@@ -52,6 +53,7 @@ uv run adk web              # browser IDE, then pick lab11 at http://localhost:8
    ```
 
 5. Confirm the reply is JSON with all five fields and correct types
+
 6. Add a difficulty field to the Recipe model
 
    ```bash
@@ -59,6 +61,7 @@ uv run adk web              # browser IDE, then pick lab11 at http://localhost:8
    ```
 
 7. Re-run and confirm the new field appears in the output
+
 8. Note the ADK restriction that an agent with output_schema cannot also use tools
 
 ## Test it
@@ -67,4 +70,4 @@ Every response parses as JSON matching the Recipe schema, cooking_time is an int
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

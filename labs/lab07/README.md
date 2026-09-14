@@ -1,16 +1,16 @@
-# Lab 7 — Multi-Agent Handoff — Joke Generator to Translator
+# Lab 7 — Multi-Agent Handoff — A Blog Content Production Team
 
 **Topic 02:** Build A Multi Agent App with Gemini ADK  
 **Learning outcome:** LO3 — implement agent-to-agent delegation with sub_agents.  
-**Tools:** google-adk, sub_agents, Gemini 2.0 Flash
+**Tools:** google-adk, sub_agents, google_search, Gemini 3.8 Flash
 
 ## Goal
 
-Build a three-level agent hierarchy where a root agent hands off to a joke generator, which in turn hands off to a translator. This is the core ADK delegation pattern.
+Build a realistic editorial team: a managing editor hands off to a researcher, who gathers current facts with web search and then hands off to a writer who drafts the post. Every handoff is driven by the description field — the core ADK delegation pattern.
 
 ## What you'll build
 
-lab07 — a root agent that produces an English joke and its Chinese translation through two automatic handoffs.
+lab07 — a three-stage content pipeline that turns a topic request into a publish-ready, fact-grounded blog post.
 
 ## Setup
 
@@ -32,34 +32,38 @@ uv run adk web              # browser IDE, then pick lab07 at http://localhost:8
 
 ## Step-by-step
 
-1. Read the three agent definitions and the sub_agents chain
+1. Read the three agents and the sub_agents chain
 
    ```bash
    cat lab07/agent.py
    ```
 
-2. Note that the description field is what the parent reads to decide on a handoff
+2. The description field is what drives the parent's handoff decision
+
 3. Run the agent in the browser IDE
 
    ```bash
    uv run adk web
    ```
 
-4. Select lab07 and request a joke
+4. Select lab07 and commission a post
 
    ```bash
-   Tell me a joke
+   Write a blog post about AI adoption in Singapore SMEs
    ```
 
-5. In the Events tab, find the transfer_to_agent call into joke_generator
-6. Find the second transfer into translator and confirm the Chinese output
-7. Weaken the translator's description to one vague word and re-run
-8. Observe the handoff becoming unreliable, then restore the description
+5. In the Events tab, find the transfer_to_agent call into researcher_agent
+
+6. Confirm the researcher's google_search calls, then the transfer into writer_agent
+
+7. Check the finished post cites only facts that appear in the research brief
+
+8. Weaken the writer_agent description to one vague word, re-run and observe the handoff become unreliable, then restore it
 
 ## Test it
 
-One 'Tell me a joke' request yields an English joke followed by a Chinese translation, and the Events tab shows two transfer_to_agent calls.
+One topic request produces a research brief followed by a cited blog post, and the Events tab shows two transfer_to_agent calls in order.
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

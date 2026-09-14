@@ -2,7 +2,7 @@
 
 **Topic 04:** Build an Agentic AI App with Gemini Agent ADK and Streamlit  
 **Learning outcome:** LO2 / LO3 — separate agent configuration from code to improve maintainability.  
-**Tools:** google-adk YAML config, LlmAgent, Gemini 2.5 Flash
+**Tools:** google-adk YAML config, LlmAgent, Gemini 3.8 Flash
 
 ## Goal
 
@@ -63,7 +63,9 @@ uv run adk web              # browser IDE, then pick lab16 at http://localhost:8
    ```
 
 6. Ask a cycling question and confirm it routes to bike_agent
+
 7. Add a sixth specialist by creating a new YAML file and referencing it in root_agent.yaml
+
 8. Re-run and confirm the new specialist is routed to without touching any Python file
 
 ## Test it
@@ -72,4 +74,4 @@ All five specialists route correctly, and your sixth agent works after editing Y
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

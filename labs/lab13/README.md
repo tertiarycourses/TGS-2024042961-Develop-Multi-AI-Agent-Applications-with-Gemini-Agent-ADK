@@ -45,6 +45,7 @@ uv run adk web              # browser IDE, then pick lab13 at http://localhost:8
    ```
 
 3. Identify the chunking rule and the minimum chunk length filter
+
 4. Run the agent once to trigger ingestion into ChromaDB
 
    ```bash
@@ -58,6 +59,7 @@ uv run adk web              # browser IDE, then pick lab13 at http://localhost:8
    ```
 
 6. Explain why chunks shorter than 50 characters are discarded
+
 7. Change the chunk rule to split on single newlines, delete chroma_db, and re-ingest
 
    ```bash
@@ -72,4 +74,4 @@ lab13/chroma_db exists and contains a populated air_fryer_docs collection, and y
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

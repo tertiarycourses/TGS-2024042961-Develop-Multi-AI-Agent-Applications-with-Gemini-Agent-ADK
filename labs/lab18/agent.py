@@ -23,7 +23,7 @@ load_dotenv(dotenv_path=env_path)
 
 from google.adk.agents import Agent
 
-MODEL = "gemini-3.1-flash-lite"
+MODEL = "gemini-3.8-flash"
 
 
 # ---------- TOOLS ----------

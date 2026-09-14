@@ -1,6 +1,6 @@
 # Develop Multi AI Agent Applications with Gemini Agent ADK — Hands-On Labs
 
-**Course Code:** TGS-2024042961  ·  **18 labs across 4 topics**  ·  **v1.2**
+**Course Code:** TGS-2024042961  ·  **18 labs across 4 topics**  ·  **v1.4**
 
 Every lab lives in its own self-contained folder — `lab01` … `lab18` — holding that lab's
 agent script, any data files it needs, and a `README.md` lab sheet with the full
@@ -14,6 +14,8 @@ cd labs
 uv sync                 # installs google-adk and every dependency
 cp .env.example .env    # then paste your GOOGLE_API_KEY into .env
 ```
+
+Every agent in this course runs on **`gemini-3.8-flash`**.
 
 ## Running a lab
 
@@ -32,9 +34,9 @@ uv run adk web          # browser IDE at http://localhost:8000 — pick any lab
 | 4 | [`lab04`](lab04/) | [Swap the Model — Running an ADK Agent on a Non-Gemini LLM](lab04/README.md) | 1 |
 | 5 | [`lab05`](lab05/) | [Give an Agent Memory — Sessions, State and the Runner](lab05/README.md) | 2 |
 | 6 | [`lab06`](lab06/) | [Inspect the Agent Loop — Events, Tool Calls and Final Responses](lab06/README.md) | 2 |
-| 7 | [`lab07`](lab07/) | [Multi-Agent Handoff — Joke Generator to Translator](lab07/README.md) | 2 |
-| 8 | [`lab08`](lab08/) | [Hierarchical Multi-Agent System — The Tutor Agent](lab08/README.md) | 2 |
-| 9 | [`lab09`](lab09/) | [Sequential Workflow Agent — Singapore Transport Route Planner](lab09/README.md) | 2 |
+| 7 | [`lab07`](lab07/) | [Multi-Agent Handoff — A Blog Content Production Team](lab07/README.md) | 2 |
+| 8 | [`lab08`](lab08/) | [Coordinator / Dispatcher — A Customer Support Desk](lab08/README.md) | 2 |
+| 9 | [`lab09`](lab09/) | [Workflow Agents — Sequential, Parallel, Loop and Agent-as-a-Tool](lab09/README.md) | 2 |
 | 10 | [`lab10`](lab10/) | [Add a Guardrail — Blocking Unsafe Requests with a Callback](lab10/README.md) | 2 |
 | 11 | [`lab11`](lab11/) | [Structured Output — Forcing Valid JSON with Pydantic](lab11/README.md) | 2 |
 | 12 | [`lab12`](lab12/) | [Connect External Tools with MCP — StreamableHTTP and SSE](lab12/README.md) | 2 |
@@ -43,7 +45,7 @@ uv run adk web          # browser IDE at http://localhost:8000 — pick any lab
 | 15 | [`lab15`](lab15/) | [Evaluate RAG Performance — Retrieval Quality and Groundedness](lab15/README.md) | 3 |
 | 16 | [`lab16`](lab16/) | [Declarative Agents — Configuring a Multi-Agent System in YAML](lab16/README.md) | 4 |
 | 17 | [`lab17`](lab17/) | [Ship the Agent as a Web App with Streamlit](lab17/README.md) | 4 |
-| 18 | [`lab18`](lab18/) | [Capstone — Design, Build and Assess Your Own Multi-Agent Application](lab18/README.md) | 4 |
+| 18 | [`lab18`](lab18/) | [Capstone — Build Your Own Multi-Agent Application](lab18/README.md) | 4 |
 
 ## Topics
 
@@ -56,4 +58,4 @@ uv run adk web          # browser IDE at http://localhost:8000 — pick any lab
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

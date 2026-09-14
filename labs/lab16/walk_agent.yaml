@@ -1,5 +1,5 @@
 name: walk_agent
-model: gemini-3.1-flash-lite
+model: gemini-3.8-flash
 agent_class: LlmAgent
 description: An agent specialized in providing walking directions in Singapore.
 instruction: >

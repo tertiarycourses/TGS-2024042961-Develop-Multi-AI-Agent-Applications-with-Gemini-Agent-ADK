@@ -175,8 +175,8 @@ agent = Agent(..., output_schema=Recipe)
 
 | Artifact | File |
 |---|---|
-| Trainer Slides | `courseware/Develop Multi AI Agent Applications with Gemini Agent ADK-v1.3.pptx` |
-| Learner Slides (PDF) | `courseware/Develop Multi AI Agent Applications with Gemini Agent ADK-v1.3.pdf` |
+| Trainer Slides | `courseware/Develop Multi AI Agent Applications with Gemini Agent ADK-v1.4.pptx` |
+| Learner Slides (PDF) | `courseware/Develop Multi AI Agent Applications with Gemini Agent ADK-v1.4.pdf` |
 | Lesson Plan | `courseware/LP-Develop Multi AI Agent Applications with Gemini Agent ADK.docx` |
 | Learner Guide | `courseware/LG-Develop Multi AI Agent Applications with Gemini Agent ADK.docx` |
 | Learner Guide (Markdown) | `LG-Develop Multi AI Agent Applications with Gemini Agent ADK.md` |
@@ -185,7 +185,7 @@ The **Learner Guide** carries the full step-by-step instructions for all 18 labs
 sections on core ADK patterns, evaluating a RAG pipeline, and assessing the feasibility of an
 agent application.
 
-The **Trainer Slides** (v1.3, 160 slides) teach each lab as a four-part unit — briefing →
+The **Trainer Slides** (v1.4, 162 slides) teach each lab as a four-part unit — briefing →
 process map → procedure with the actual commands → verification with troubleshooting — alongside
 comparison matrices, decision maps, worked code examples and native charts. Slide transitions are
 deliberately restrained (content fades, section dividers push), with click-through reveals on the

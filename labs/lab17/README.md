@@ -30,12 +30,6 @@ uv run adk run lab17     # terminal chat
 uv run adk web              # browser IDE, then pick lab17 at http://localhost:8000
 ```
 
-This lab is a Streamlit app rather than an `adk` agent — launch it with:
-
-```bash
-uv run streamlit run lab17/app.py
-```
-
 ## Step-by-step
 
 1. Read how the ADK session service is stored in st.session_state
@@ -44,7 +38,8 @@ uv run streamlit run lab17/app.py
    cat lab17/app.py
    ```
 
-2. Note that the async Runner is driven through asyncio.run inside the handler
+2. The async Runner is driven by asyncio.run in the handler
+
 3. Launch the Streamlit application
 
    ```bash
@@ -64,7 +59,9 @@ uv run streamlit run lab17/app.py
    ```
 
 6. Refresh the browser and observe what happens to the session
+
 7. Change the page title and icon in st.set_page_config and reload
+
 8. Add a sidebar Clear chat button that resets st.session_state.messages
 
 ## Test it
@@ -73,4 +70,4 @@ The Streamlit app answers a journey query, retains history across follow-up turn
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

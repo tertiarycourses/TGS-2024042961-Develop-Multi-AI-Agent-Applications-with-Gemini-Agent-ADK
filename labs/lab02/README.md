@@ -2,7 +2,7 @@
 
 **Topic 01:** Overview of Agentic AI in Gemini ADK  
 **Learning outcome:** LO1 / LO3 — define an agent from a model, name, description and instruction.  
-**Tools:** google-adk, Gemini 2.0 Flash, adk run, adk web
+**Tools:** google-adk, Gemini 3.8 Flash, adk run, adk web
 
 ## Goal
 
@@ -39,6 +39,7 @@ uv run adk web              # browser IDE, then pick lab02 at http://localhost:8
    ```
 
 2. Identify model, name, description and instruction in the Agent(...) call
+
 3. Run the agent in the terminal
 
    ```bash
@@ -64,6 +65,7 @@ uv run adk web              # browser IDE, then pick lab02 at http://localhost:8
    ```
 
 7. Open http://localhost:8000, select lab02, and inspect the Events tab
+
 8. Edit the instruction to make the assistant reply only in formal English, then re-run
 
 ## Test it
@@ -72,4 +74,4 @@ The agent answers general banking questions helpfully but declines to disclose o
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

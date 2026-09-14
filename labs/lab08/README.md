@@ -1,16 +1,16 @@
-# Lab 8 — Hierarchical Multi-Agent System — The Tutor Agent
+# Lab 8 — Coordinator / Dispatcher — A Customer Support Desk
 
 **Topic 02:** Build A Multi Agent App with Gemini ADK  
 **Learning outcome:** LO3 — design a coordinator agent routing to specialised sub-agents.  
-**Tools:** google-adk, sub_agents, coordinator pattern
+**Tools:** google-adk, sub_agents, coordinator/dispatcher pattern, function tools
 
 ## Goal
 
-Build a tutoring system where one root agent routes each question to a maths, physics or history specialist, each with its own instruction and teaching style.
+Build a production-shaped support desk where a triage agent dispatches each ticket to the billing, technical or returns specialist — each with its own instruction and its own tools against order and refund systems.
 
 ## What you'll build
 
-lab08 — a coordinator with three subject specialists that routes by topic.
+lab08 — a triage coordinator with three tool-equipped specialists that routes real support tickets.
 
 ## Setup
 
@@ -32,49 +32,50 @@ uv run adk web              # browser IDE, then pick lab08 at http://localhost:8
 
 ## Step-by-step
 
-1. Read the three specialist agents and the root coordinator
+1. Read the three specialists, their tools and the triage coordinator
 
    ```bash
    cat lab08/agent.py
    ```
 
 2. Compare the three descriptions and note how each states its routing trigger
+
 3. Launch the web IDE and select lab08
 
    ```bash
    uv run adk web
    ```
 
-4. Ask a maths question and confirm it routes to math_tutor_agent
+4. Send a billing ticket and confirm it routes to billing_agent
 
    ```bash
-   Solve 2x + 5 = 17 step by step.
+   I was charged twice for order SG-10482
    ```
 
-5. Ask a physics question
+5. Send a technical ticket
 
    ```bash
-   Explain Newton's second law with an example.
+   My wireless keyboard will not pair with my laptop
    ```
 
-6. Ask a history question
+6. Send a returns ticket and watch the tool calls
 
    ```bash
-   What caused the fall of the Roman Empire?
+   Where is order SG-10915 and can I still refund it?
    ```
 
-7. Ask an ambiguous cross-subject question and observe how the router resolves it
+7. Send a ticket that spans two queues and observe how triage resolves it
 
    ```bash
-   How did physics change during the Industrial Revolution?
+   My keyboard is faulty and I want my money back
    ```
 
-8. Add a fourth specialist of your own choosing to sub_agents and test the routing
+8. Add a fourth specialist of your own to sub_agents and test the routing
 
 ## Test it
 
-Each subject question is answered by the matching specialist, visible as a transfer_to_agent event, and your new fourth specialist is routed to correctly.
+Each ticket reaches the matching specialist as a transfer_to_agent event, the returns ticket triggers lookup_order and check_refund_eligibility, and your fourth specialist routes.
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

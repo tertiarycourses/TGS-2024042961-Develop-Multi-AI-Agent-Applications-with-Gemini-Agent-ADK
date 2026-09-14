@@ -2,7 +2,7 @@
 
 **Topic 01:** Overview of Agentic AI in Gemini ADK  
 **Learning outcome:** LO2 / LO4 — compare models and assess the trade-offs for an engineering process.  
-**Tools:** google-adk, LiteLlm, Gemini 2.0 Flash, OpenAI GPT-4.1-mini
+**Tools:** google-adk, LiteLlm, Gemini 3.8 Flash, OpenAI GPT-4.1-mini
 
 ## Goal
 
@@ -59,7 +59,7 @@ uv run adk web              # browser IDE, then pick lab04 at http://localhost:8
 5. Edit lab04/agent.py and replace the model with a Gemini model string
 
    ```bash
-   model='gemini-2.0-flash'
+   model='gemini-3.8-flash'
    ```
 
 6. Re-run the identical prompt on Gemini
@@ -76,4 +76,4 @@ The same agent runs unchanged on both providers, and you can state which model y
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

@@ -1,5 +1,5 @@
 name: taxi_agent
-model: gemini-3.1-flash-lite
+model: gemini-3.8-flash
 description: Agent specialized in taxi and ride-sharing information in Singapore.
 instruction: |
   You are a Taxi/Ride-sharing Research Agent for Singapore.

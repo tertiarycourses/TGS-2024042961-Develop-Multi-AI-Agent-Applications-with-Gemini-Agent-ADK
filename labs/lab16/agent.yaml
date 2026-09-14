@@ -1,5 +1,5 @@
 name: root_agent
-model: gemini-3.1-flash-lite
+model: gemini-3.8-flash
 description: Root agent that introduces transport planning and delegates to workflow.
 instruction: |
   You are a friendly Transport Planning Assistant for Singapore.

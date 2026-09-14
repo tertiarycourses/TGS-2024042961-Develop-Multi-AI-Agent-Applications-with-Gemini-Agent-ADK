@@ -51,8 +51,11 @@ uv run adk web              # browser IDE, then pick lab06 at http://localhost:8
    ```
 
 4. In the printed trace, identify the function_call event
+
 5. Identify the function_response event carrying the tool's return value
+
 6. Identify the final response event and note how many LLM calls one turn actually took
+
 7. Explain why a two-tool question produces more events than a one-tool question
 
 ## Test it
@@ -61,4 +64,4 @@ You can point to the function_call, the function_response and the final response
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

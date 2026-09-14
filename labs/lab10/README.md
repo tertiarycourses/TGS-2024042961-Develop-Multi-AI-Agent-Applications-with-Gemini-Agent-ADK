@@ -39,6 +39,7 @@ uv run adk web              # browser IDE, then pick lab10 at http://localhost:8
    ```
 
 2. Note that returning None allows the call and returning a response blocks it
+
 3. Run the agent
 
    ```bash
@@ -58,7 +59,9 @@ uv run adk web              # browser IDE, then pick lab10 at http://localhost:8
    ```
 
 6. Confirm the refusal message is returned and no LLM call was made
+
 7. Extend the guardrail to also block a second keyword of your choice
+
 8. Re-run and verify both keywords are now intercepted
 
 ## Test it
@@ -67,4 +70,4 @@ The blocked keyword returns the refusal message with no model call in the trace,
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

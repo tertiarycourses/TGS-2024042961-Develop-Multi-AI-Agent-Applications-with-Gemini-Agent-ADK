@@ -30,6 +30,13 @@ uv run adk run lab12     # terminal chat
 uv run adk web              # browser IDE, then pick lab12 at http://localhost:8000
 ```
 
+## Agent scripts in this lab
+
+- `agent.py` — the default agent loaded by `adk run lab12`
+- `agent_sse.py`
+
+Open `uv run adk web` and select the script you want to run.
+
 ## Step-by-step
 
 1. Read how McpToolset discovers tools from the server URL
@@ -45,6 +52,7 @@ uv run adk web              # browser IDE, then pick lab12 at http://localhost:8
    ```
 
 3. Send a request that exercises one of the discovered tools
+
 4. Compare the SSE variant and note that only the connection params differ
 
    ```bash
@@ -52,7 +60,9 @@ uv run adk web              # browser IDE, then pick lab12 at http://localhost:8
    ```
 
 5. Explain when SSE is preferred over StreamableHTTP
+
 6. Point the MCP_SERVER_URL at a different MCP server and re-run
+
 7. Confirm the agent's available tools change without any change to the agent code
 
 ## Test it
@@ -61,4 +71,4 @@ The agent prints the tools discovered from the MCP server and successfully invok
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

@@ -2,7 +2,7 @@
 
 **Topic 01:** Overview of Agentic AI in Gemini ADK  
 **Learning outcome:** LO1 / LO3 — extend an agent with custom function tools and evaluate tool selection.  
-**Tools:** google-adk, OpenWeather API, Tavily API, Gemini 2.0 Flash
+**Tools:** google-adk, OpenWeather API, Tavily API, Gemini 3.8 Flash
 
 ## Goal
 
@@ -33,7 +33,9 @@ uv run adk web              # browser IDE, then pick lab03 at http://localhost:8
 ## Step-by-step
 
 1. Register for a free OpenWeather API key at openweathermap.org and a Tavily key at tavily.com
+
 2. Add both keys to labs/.env as OPENWEATHER_API_KEY and TAVILY_API_KEY
+
 3. Read the two tool functions and note the docstring, the typed arguments and the dict return
 
    ```bash
@@ -41,6 +43,7 @@ uv run adk web              # browser IDE, then pick lab03 at http://localhost:8
    ```
 
 4. Observe that tools are attached with tools=[get_weather, tavily_search]
+
 5. Run the agent
 
    ```bash
@@ -71,11 +74,10 @@ uv run adk web              # browser IDE, then pick lab03 at http://localhost:8
    uv run adk web
    ```
 
-
 ## Test it
 
 The weather question produces a get_weather function_call with a live temperature; the news question produces a tavily_search call; the arithmetic question produces no tool call at all.
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

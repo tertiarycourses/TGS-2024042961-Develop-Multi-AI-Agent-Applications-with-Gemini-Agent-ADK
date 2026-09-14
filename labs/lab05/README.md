@@ -32,13 +32,14 @@ uv run adk web              # browser IDE, then pick lab05 at http://localhost:8
 
 ## Step-by-step
 
-1. Read how the session service, session and Runner are wired together
+1. Read how session service, session and Runner are wired
 
    ```bash
    cat lab05/agent.py
    ```
 
 2. Note the APP_NAME, USER_ID and SESSION_ID that identify one conversation
+
 3. Run the session script
 
    ```bash
@@ -58,6 +59,7 @@ uv run adk web              # browser IDE, then pick lab05 at http://localhost:8
    ```
 
 6. Comment out the session creation and re-run to observe the failure
+
 7. Restore the session code and confirm continuity is back
 
 ## Test it
@@ -66,4 +68,4 @@ The follow-up 'And what about Osaka?' is understood as a weather question withou
 
 ---
 
-*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.2 — © 2026 Tertiary Infotech Academy Pte Ltd*
+*Develop Multi AI Agent Applications with Gemini Agent ADK (TGS-2024042961) v1.4 — © 2026 Tertiary Infotech Academy Pte Ltd*

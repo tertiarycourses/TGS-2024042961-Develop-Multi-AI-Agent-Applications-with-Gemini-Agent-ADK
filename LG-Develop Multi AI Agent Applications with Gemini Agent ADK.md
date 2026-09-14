@@ -1,6 +1,6 @@
 # Develop Multi AI Agent Applications with Gemini Agent ADK — Learner Guide
 
-**WSQ Course Code:** TGS-2024042961  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.3 · 12 August 2026**
+**WSQ Course Code:** TGS-2024042961  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.4 · 15 September 2026**
 
 ## Contents
 
@@ -16,9 +16,9 @@
 - [Topic 02 — Build A Multi Agent App with Gemini ADK  (35%)](#topic-02--build-a-multi-agent-app-with-gemini-adk--35)
   - [Lab 5 — Give an Agent Memory — Sessions, State and the Runner](#lab-5--give-an-agent-memory--sessions-state-and-the-runner)
   - [Lab 6 — Inspect the Agent Loop — Events, Tool Calls and Final Responses](#lab-6--inspect-the-agent-loop--events-tool-calls-and-final-responses)
-  - [Lab 7 — Multi-Agent Handoff — Joke Generator to Translator](#lab-7--multi-agent-handoff--joke-generator-to-translator)
-  - [Lab 8 — Hierarchical Multi-Agent System — The Tutor Agent](#lab-8--hierarchical-multi-agent-system--the-tutor-agent)
-  - [Lab 9 — Sequential Workflow Agent — Singapore Transport Route Planner](#lab-9--sequential-workflow-agent--singapore-transport-route-planner)
+  - [Lab 7 — Multi-Agent Handoff — A Blog Content Production Team](#lab-7--multi-agent-handoff--a-blog-content-production-team)
+  - [Lab 8 — Coordinator / Dispatcher — A Customer Support Desk](#lab-8--coordinator--dispatcher--a-customer-support-desk)
+  - [Lab 9 — Workflow Agents — Sequential, Parallel, Loop and Agent-as-a-Tool](#lab-9--workflow-agents--sequential-parallel-loop-and-agent-as-a-tool)
   - [Lab 10 — Add a Guardrail — Blocking Unsafe Requests with a Callback](#lab-10--add-a-guardrail--blocking-unsafe-requests-with-a-callback)
   - [Lab 11 — Structured Output — Forcing Valid JSON with Pydantic](#lab-11--structured-output--forcing-valid-json-with-pydantic)
   - [Lab 12 — Connect External Tools with MCP — StreamableHTTP and SSE](#lab-12--connect-external-tools-with-mcp--streamablehttp-and-sse)
@@ -29,7 +29,7 @@
 - [Topic 04 — Build an Agentic AI App with Gemini Agent ADK and Streamlit  (15%)](#topic-04--build-an-agentic-ai-app-with-gemini-agent-adk-and-streamlit--15)
   - [Lab 16 — Declarative Agents — Configuring a Multi-Agent System in YAML](#lab-16--declarative-agents--configuring-a-multi-agent-system-in-yaml)
   - [Lab 17 — Ship the Agent as a Web App with Streamlit](#lab-17--ship-the-agent-as-a-web-app-with-streamlit)
-  - [Lab 18 — Capstone — Design, Build and Assess Your Own Multi-Agent Application](#lab-18--capstone--design-build-and-assess-your-own-multi-agent-application)
+  - [Lab 18 — Capstone — Build Your Own Multi-Agent Application](#lab-18--capstone--build-your-own-multi-agent-application)
 - [Reference — Core ADK Patterns](#reference--core-adk-patterns)
 - [Reference — Evaluating a RAG Pipeline](#reference--evaluating-a-rag-pipeline)
 - [Assessing Feasibility of an Agent Application](#assessing-feasibility-of-an-agent-application)
@@ -130,7 +130,10 @@ LLM & agentic AI foundations · Gemini model family · ADK architecture · first
 
 - A Large Language Model (LLM) is trained on very large text corpora and generates language autoregressively, one token at a time.
 - Agentic AI adds reasoning, memory, tool use and autonomy on top of an LLM, so the model can act, not just answer.
-- Gemini is Google DeepMind's natively multimodal model family — Ultra, Pro, Flash and Nano — reasoning across text, image, video, audio and code.
+- Gemini is Google DeepMind's natively multimodal model family — Pro, Flash and Nano — reasoning across text, image, video, audio and code.
+- This course runs on gemini-3.8-flash, the Flash tier engineered for autonomous agents and long-horizon, multi-step reasoning — the workload a multi-agent system creates.
+- Model IDs retire. Pin a specific version for reproducible training runs, or use a floating alias such as gemini-flash-latest in code you do not want to revisit; either way the model ID belongs in one MODEL constant, never scattered through the file.
+- Authentication is either an AI Studio API key in GOOGLE_API_KEY, or Vertex AI via GOOGLE_CLOUD_PROJECT and GOOGLE_CLOUD_LOCATION — the agent code is identical in both cases.
 - The Agent Development Kit (ADK) is Google's open-source Python framework for building, evaluating and deploying agents.
 - An ADK Agent is defined by four things: a model, a name, a description and an instruction.
 - Tools are ordinary Python functions the agent may call; the docstring and type hints tell the model when and how to call them.
@@ -142,11 +145,11 @@ LLM & agentic AI foundations · Gemini model family · ADK architecture · first
 
 Learning outcome: LO1 / LO2 — establish a working Gemini ADK development environment..
 
-Goal: Install the Agent Development Kit toolchain with uv, obtain a free Google AI Studio API key, and store it safely in a .env file so every agent in the course can authenticate.
+Goal: Install the Agent Development Kit toolchain with uv, obtain a free Google AI Studio API key, store it safely in a .env file, and verify the Gemini model the whole course runs on. Every later lab depends on this setup working.
 
 **What you'll build**
 
-A working Python 3.13 project with google-adk installed and a validated GOOGLE_API_KEY.   (Tools: Google AI Studio, uv, Python 3.13, google-adk, python-dotenv.)
+A working Python 3.13 project with google-adk installed, a validated GOOGLE_API_KEY and a confirmed gemini-3.8-flash connection.   (Tools: Google AI Studio, uv, Python 3.13, google-adk, python-dotenv, gemini-3.8-flash.)
 
 **Step-by-step**
 
@@ -186,10 +189,28 @@ EOF
    uv run adk --help
    ```
 
+7. Run the setup verifier — it checks Python, google-adk, the key and a live model call
+
+   ```bash
+   uv run python lab01/verify_setup.py
+   ```
+
+8. Note the MODEL constant every lab uses, and why the ID is declared once per file
+
+   ```bash
+   gemini-3.8-flash
+   ```
+
+9. Confirm .env is git-ignored so your API key is never committed
+
+   ```bash
+   git check-ignore -v .env
+   ```
+
 
 **Test it**
 
-uv run adk --help prints the ADK usage banner listing the run, web and eval sub-commands, and no ModuleNotFoundError is raised.
+uv run python lab01/verify_setup.py reports PASS on every check, including a live gemini-3.8-flash response, and git check-ignore confirms .env is excluded from commits.
 
 > **Note:** This lab is self-contained in labs/lab01/ — read verify_setup.py alongside these steps. The lab sheet for this lab is at labs/lab01/README.md. Never commit your .env file or API keys to a public repository.
 
@@ -204,7 +225,7 @@ Goal: Create a single-agent banking customer-service assistant. You learn the fo
 
 **What you'll build**
 
-lab02 — a Gemini-powered banking assistant that answers general banking questions and refuses to handle PINs, OTPs or full account numbers.   (Tools: google-adk, Gemini 2.0 Flash, adk run, adk web.)
+lab02 — a Gemini-powered banking assistant that answers general banking questions and refuses to handle PINs, OTPs or full account numbers.   (Tools: google-adk, Gemini 3.8 Flash, adk run, adk web.)
 
 **Step-by-step**
 
@@ -259,7 +280,7 @@ Goal: Add two Python function tools to an agent: a live OpenWeather lookup and a
 
 **What you'll build**
 
-lab03 — an agent that decides for itself whether a question needs the weather tool, the search tool, both, or neither.   (Tools: google-adk, OpenWeather API, Tavily API, Gemini 2.0 Flash.)
+lab03 — an agent that decides for itself whether a question needs the weather tool, the search tool, both, or neither.   (Tools: google-adk, OpenWeather API, Tavily API, Gemini 3.8 Flash.)
 
 **Step-by-step**
 
@@ -320,7 +341,7 @@ Goal: Use the LiteLlm wrapper to point the same agent at an OpenAI model, then c
 
 **What you'll build**
 
-lab04 — one agent definition that runs on either Gemini or an OpenAI model by changing a single line.   (Tools: google-adk, LiteLlm, Gemini 2.0 Flash, OpenAI GPT-4.1-mini.)
+lab04 — one agent definition that runs on either Gemini or an OpenAI model by changing a single line.   (Tools: google-adk, LiteLlm, Gemini 3.8 Flash, OpenAI GPT-4.1-mini.)
 
 **Step-by-step**
 
@@ -351,7 +372,7 @@ lab04 — one agent definition that runs on either Gemini or an OpenAI model by 
 5. Edit lab04/agent.py and replace the model with a Gemini model string
 
    ```bash
-   model='gemini-2.0-flash'
+   model='gemini-3.8-flash'
    ```
 
 6. Re-run the identical prompt on Gemini
@@ -373,19 +394,22 @@ The same agent runs unchanged on both providers, and you can state which model y
 
 ## Topic 02 — Build A Multi Agent App with Gemini ADK  (35%)
 
-Sessions & state · handoff · sub-agents · workflow agents · guardrails · structured output · MCP
+Sessions & state · handoff · coordinator · Sequential · Parallel · Loop · Agent-as-a-Tool · guardrails · MCP
 
 **Key concepts**
 
 - LLMs are stateless — a Session plus a SessionService is what gives an ADK agent memory across turns.
 - The Runner is the execution engine: it takes a user message, drives the agent loop and streams back Events.
-- Multi-agent handoff — a root agent with sub_agents transfers control to whichever specialist matches the request.
-- A hierarchical (coordinator) pattern puts a router agent above specialised sub-agents, each with its own instruction and tools.
-- SequentialAgent runs sub-agents in a fixed order and passes each output forward; ParallelAgent fans them out concurrently.
+- Multi-agent handoff — a root agent with sub_agents TRANSFERS control to whichever specialist matches the request, and that specialist then answers the user directly.
+- The coordinator/dispatcher pattern puts a triage agent above specialised sub-agents; ADK builds the delegation tool from each sub-agent's description, so routing quality depends on how sharply those descriptions are written.
+- SequentialAgent guarantees stage order in code — use it whenever stage N genuinely needs stage N-1's output, such as costing a travel itinerary that must exist first.
+- output_key writes an agent's result into session state, and the next agent reads it back through a {placeholder} in its instruction — this is how workflow agents pass data along.
+- ParallelAgent fans independent branches out concurrently, cutting wall-clock latency to the slowest branch rather than the sum; a fan-in agent then synthesises the branches and reconciles any conflicts.
+- LoopAgent iterates a cycle such as writer→critic, and needs TWO stops: max_iterations as a hard ceiling, and an escape hatch where a tool sets tool_context.actions.escalate = True to exit early once the work is good enough.
+- Agent-as-a-Tool (AgentTool) CALLS a specialist that returns its result to the parent, which keeps control — the opposite of sub_agents handoff, and the right choice when the parent still needs to compose the final answer.
 - Callbacks such as before_model_callback implement guardrails — inspect, block or rewrite a request before it reaches the model.
 - output_schema with a Pydantic model forces the agent to emit validated, machine-readable JSON instead of free text.
 - The Model Context Protocol (MCP) is an open standard that lets an agent consume tools hosted by an external server over StreamableHTTP or SSE.
-- Agents can also be declared declaratively in YAML config files instead of Python.
 
 
 ### Lab 5 — Give an Agent Memory — Sessions, State and the Runner
@@ -400,7 +424,7 @@ lab05 — a multi-turn agent that answers follow-up questions using earlier cont
 
 **Step-by-step**
 
-1. Read how the session service, session and Runner are wired together
+1. Read how session service, session and Runner are wired
 
    ```bash
    cat lab05/agent.py
@@ -481,64 +505,64 @@ You can point to the function_call, the function_response and the final response
 ---
 
 
-### Lab 7 — Multi-Agent Handoff — Joke Generator to Translator
+### Lab 7 — Multi-Agent Handoff — A Blog Content Production Team
 
 Learning outcome: LO3 — implement agent-to-agent delegation with sub_agents..
 
-Goal: Build a three-level agent hierarchy where a root agent hands off to a joke generator, which in turn hands off to a translator. This is the core ADK delegation pattern.
+Goal: Build a realistic editorial team: a managing editor hands off to a researcher, who gathers current facts with web search and then hands off to a writer who drafts the post. Every handoff is driven by the description field — the core ADK delegation pattern.
 
 **What you'll build**
 
-lab07 — a root agent that produces an English joke and its Chinese translation through two automatic handoffs.   (Tools: google-adk, sub_agents, Gemini 2.0 Flash.)
+lab07 — a three-stage content pipeline that turns a topic request into a publish-ready, fact-grounded blog post.   (Tools: google-adk, sub_agents, google_search, Gemini 3.8 Flash.)
 
 **Step-by-step**
 
-1. Read the three agent definitions and the sub_agents chain
+1. Read the three agents and the sub_agents chain
 
    ```bash
    cat lab07/agent.py
    ```
 
-2. Note that the description field is what the parent reads to decide on a handoff
+2. The description field is what drives the parent's handoff decision
 3. Run the agent in the browser IDE
 
    ```bash
    uv run adk web
    ```
 
-4. Select lab07 and request a joke
+4. Select lab07 and commission a post
 
    ```bash
-   Tell me a joke
+   Write a blog post about AI adoption in Singapore SMEs
    ```
 
-5. In the Events tab, find the transfer_to_agent call into joke_generator
-6. Find the second transfer into translator and confirm the Chinese output
-7. Weaken the translator's description to one vague word and re-run
-8. Observe the handoff becoming unreliable, then restore the description
+5. In the Events tab, find the transfer_to_agent call into researcher_agent
+6. Confirm the researcher's google_search calls, then the transfer into writer_agent
+7. Check the finished post cites only facts that appear in the research brief
+8. Weaken the writer_agent description to one vague word, re-run and observe the handoff become unreliable, then restore it
 
 **Test it**
 
-One 'Tell me a joke' request yields an English joke followed by a Chinese translation, and the Events tab shows two transfer_to_agent calls.
+One topic request produces a research brief followed by a cited blog post, and the Events tab shows two transfer_to_agent calls in order.
 
 > **Note:** This lab is self-contained in labs/lab07/ — read agent.py alongside these steps. The lab sheet for this lab is at labs/lab07/README.md. Never commit your .env file or API keys to a public repository.
 
 ---
 
 
-### Lab 8 — Hierarchical Multi-Agent System — The Tutor Agent
+### Lab 8 — Coordinator / Dispatcher — A Customer Support Desk
 
 Learning outcome: LO3 — design a coordinator agent routing to specialised sub-agents..
 
-Goal: Build a tutoring system where one root agent routes each question to a maths, physics or history specialist, each with its own instruction and teaching style.
+Goal: Build a production-shaped support desk where a triage agent dispatches each ticket to the billing, technical or returns specialist — each with its own instruction and its own tools against order and refund systems.
 
 **What you'll build**
 
-lab08 — a coordinator with three subject specialists that routes by topic.   (Tools: google-adk, sub_agents, coordinator pattern.)
+lab08 — a triage coordinator with three tool-equipped specialists that routes real support tickets.   (Tools: google-adk, sub_agents, coordinator/dispatcher pattern, function tools.)
 
 **Step-by-step**
 
-1. Read the three specialist agents and the root coordinator
+1. Read the three specialists, their tools and the triage coordinator
 
    ```bash
    cat lab08/agent.py
@@ -551,79 +575,105 @@ lab08 — a coordinator with three subject specialists that routes by topic.   (
    uv run adk web
    ```
 
-4. Ask a maths question and confirm it routes to math_tutor_agent
+4. Send a billing ticket and confirm it routes to billing_agent
 
    ```bash
-   Solve 2x + 5 = 17 step by step.
+   I was charged twice for order SG-10482
    ```
 
-5. Ask a physics question
+5. Send a technical ticket
 
    ```bash
-   Explain Newton's second law with an example.
+   My wireless keyboard will not pair with my laptop
    ```
 
-6. Ask a history question
+6. Send a returns ticket and watch the tool calls
 
    ```bash
-   What caused the fall of the Roman Empire?
+   Where is order SG-10915 and can I still refund it?
    ```
 
-7. Ask an ambiguous cross-subject question and observe how the router resolves it
+7. Send a ticket that spans two queues and observe how triage resolves it
 
    ```bash
-   How did physics change during the Industrial Revolution?
+   My keyboard is faulty and I want my money back
    ```
 
-8. Add a fourth specialist of your own choosing to sub_agents and test the routing
+8. Add a fourth specialist of your own to sub_agents and test the routing
 
 **Test it**
 
-Each subject question is answered by the matching specialist, visible as a transfer_to_agent event, and your new fourth specialist is routed to correctly.
+Each ticket reaches the matching specialist as a transfer_to_agent event, the returns ticket triggers lookup_order and check_refund_eligibility, and your fourth specialist routes.
 
 > **Note:** This lab is self-contained in labs/lab08/ — read agent.py alongside these steps. The lab sheet for this lab is at labs/lab08/README.md. Never commit your .env file or API keys to a public repository.
 
 ---
 
 
-### Lab 9 — Sequential Workflow Agent — Singapore Transport Route Planner
+### Lab 9 — Workflow Agents — Sequential, Parallel, Loop and Agent-as-a-Tool
 
-Learning outcome: LO3 / LO2 — orchestrate a fixed multi-stage pipeline with SequentialAgent..
+Learning outcome: LO3 / LO2 — orchestrate multi-agent workflows with all four ADK collaboration patterns..
 
-Goal: Chain three agents in a fixed order — collect the journey, research cross-country options, then produce a full route report — using SequentialAgent with the google_search tool.
+Goal: Work through the four ADK workflow patterns on realistic systems: a SequentialAgent travel planner, a ParallelAgent market-research desk with a synthesis step, a LoopAgent writer/critic refinement cycle, and an AgentTool bilingual report writer. The lab makes the decisive distinction explicit — when order is enforced by code vs by the model, and when a specialist takes control (handoff) vs returns a result (AgentTool).
 
 **What you'll build**
 
-lab09 — a sequential pipeline producing a route report by MRT, bus, taxi, cycling and walking.   (Tools: google-adk, SequentialAgent, LlmAgent, google_search.)
+lab09 — four runnable multi-agent systems: agent.py (sequential travel planner), agent_parallel.py (market research), agent_loop.py (copy refinement), agent_as_tool.py (bilingual report writer).   (Tools: google-adk, SequentialAgent, ParallelAgent, LoopAgent, AgentTool, output_key, google_search.)
 
 **Step-by-step**
 
-1. Read the three sub-agents and the SequentialAgent that orders them
+1. Read the sequential pipeline and note how output_key feeds the next instruction
 
    ```bash
    cat lab09/agent.py
    ```
 
-2. Note that each agent's output is passed forward as the next agent's input
-3. Launch the web IDE and select lab09
+2. Launch the web IDE and select lab09
 
    ```bash
    uv run adk web
    ```
 
-4. Provide a journey when the first agent asks
+3. Plan a trip and watch the three stages run in a guaranteed order
 
    ```bash
-   From Jurong East to Changi Airport
+   Plan a 4-day trip to Tokyo
    ```
 
-5. Wait for all three stages to complete and read the consolidated report
-6. Verify the report covers bus, MRT, taxi, cycling, walking and a fastest route
-7. Explain why SequentialAgent, not sub_agents handoff, is the right pattern here
+4. Read the parallel fan-out and explain why the three analysts need no ordering
+
+   ```bash
+   cat lab09/agent_parallel.py
+   ```
+
+5. Run the market research desk and compare its latency with the sequential pipeline
+
+   ```bash
+   Research Grab Holdings
+   ```
+
+6. Read the loop and find BOTH stopping conditions — max_iterations and escalate
+
+   ```bash
+   cat lab09/agent_loop.py
+   ```
+
+7. Run the refinement loop and count the iterations before approval
+
+   ```bash
+   Write landing page copy for a smart water bottle
+   ```
+
+8. Read the AgentTool example and state how tools=[AgentTool(...)] differs from sub_agents=[...]
+
+   ```bash
+   cat lab09/agent_as_tool.py
+   ```
+
 
 **Test it**
 
-A single journey request produces one report containing all five transport modes plus a recommended fastest route, with the three stages visible in order in the Events tab.
+The travel planner produces research, itinerary and budget in that fixed order; the research desk shows three analysts running concurrently before one synthesis; the loop stops early on approve_copy or at 3 iterations; and the report writer calls both specialists without ever transferring control.
 
 > **Note:** This lab is self-contained in labs/lab09/ — read agent.py alongside these steps. The lab sheet for this lab is at labs/lab09/README.md. Never commit your .env file or API keys to a public repository.
 
@@ -698,7 +748,7 @@ lab11 — an agent whose every reply is schema-valid JSON.   (Tools: google-adk,
    cat lab11/agent.py
    ```
 
-2. Note the typed fields: title, ingredients, cooking_time, servings, instructions
+2. Note the five typed fields on the Recipe model
 3. Run the agent
 
    ```bash
@@ -854,17 +904,17 @@ Goal: Complete the RAG loop: expose the vector search as an ADK tool, let the ag
 
 **What you'll build**
 
-lab14 — a grounded question-answering agent over the air-fryer manuals with citations.   (Tools: google-adk, ChromaDB, similarity search, Gemini 2.0 Flash.)
+lab14 — a grounded question-answering agent over the air-fryer manuals with citations.   (Tools: google-adk, ChromaDB, similarity search, Gemini 3.8 Flash.)
 
 **Step-by-step**
 
-1. Read the retrieval tool and note how the query is embedded before searching
+1. Read the retrieval tool and how the query is embedded
 
    ```bash
    cat lab14/agent.py
    ```
 
-2. Note the instruction that requires answers to come only from retrieved context
+2. Answers must come only from retrieved context
 3. Run the RAG agent
 
    ```bash
@@ -920,7 +970,7 @@ A completed RAG evaluation table with a before-and-after comparison for one tune
 
 1. Write eight test questions: six answerable from the PDFs, two deliberately out of scope
 2. For each question record whether the correct chunk was retrieved (retrieval hit)
-3. For each answer record whether every claim is supported by the retrieved text (groundedness)
+3. Record whether every claim is grounded in the retrieved text
 4. Record whether the answer actually addresses the question (relevance) and its response time
 5. Compute the hit rate, groundedness rate and mean latency across the eight questions
 6. Tune one parameter — chunk size, n_results, or switch similarity search to MMR
@@ -958,7 +1008,7 @@ Goal: Define a five-specialist transport assistant entirely in YAML config files
 
 **What you'll build**
 
-lab16 — a root agent with MRT, bus, taxi, bike and walk specialists, all declared in YAML.   (Tools: google-adk YAML config, LlmAgent, Gemini 2.5 Flash.)
+lab16 — a root agent with MRT, bus, taxi, bike and walk specialists, all declared in YAML.   (Tools: google-adk YAML config, LlmAgent, Gemini 3.8 Flash.)
 
 **Step-by-step**
 
@@ -1023,7 +1073,7 @@ lab17 — a browser chat application backed by the multi-agent transport workflo
    cat lab17/app.py
    ```
 
-2. Note that the async Runner is driven through asyncio.run inside the handler
+2. The async Runner is driven by asyncio.run in the handler
 3. Launch the Streamlit application
 
    ```bash
@@ -1055,7 +1105,7 @@ The Streamlit app answers a journey query, retains history across follow-up turn
 ---
 
 
-### Lab 18 — Capstone — Design, Build and Assess Your Own Multi-Agent Application
+### Lab 18 — Capstone — Build Your Own Multi-Agent Application
 
 Learning outcome: LO1 / LO2 / LO3 / LO4 — design a multi-agent solution and assess its feasibility..
 
@@ -1070,7 +1120,7 @@ A working multi-agent application with at least three agents, at least two tools
 1. Form a group of three to five and choose an industrial use case from your own sector
 2. Identify the specialist roles and draw the agent topology — coordinator or sequential
 3. List the tools each agent needs and which are custom functions versus built-in
-4. Build the agents, starting from the closest lab in this course as your template
+4. Build the agents, using the closest lab as your template
 5. Add session memory so the application handles multi-turn conversations
 6. Add a guardrail or a structured output schema appropriate to your use case
 7. Test with at least five realistic prompts and record where the agent fails
@@ -1098,7 +1148,7 @@ An agent is defined by a model, a name, a description and an instruction. The de
 from google.adk.agents import Agent
 
 root_agent = Agent(
-    model='gemini-2.0-flash',
+    model='gemini-3.8-flash',
     name='root_agent',
     description='A helpful assistant for user questions.',
     instruction='You are a professional assistant. Answer clearly and concisely.',

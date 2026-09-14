@@ -1,5 +1,5 @@
 name: bus_agent
-model: gemini-3.1-flash-lite
+model: gemini-3.8-flash
 description: Agent specialized in providing bus routes in Singapore.
 instruction: |
   You are a Bus Route Research Agent specialized in Singapore's bus network.
