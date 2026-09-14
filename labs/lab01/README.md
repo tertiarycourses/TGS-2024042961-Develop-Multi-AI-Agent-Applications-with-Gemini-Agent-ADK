@@ -32,7 +32,7 @@ uv run adk web              # browser IDE, then pick lab01 at http://localhost:8
 
 ## Step-by-step
 
-1. Clone the course lab repository
+1. Clone the course lab repository from GitHub
 
    ```bash
    git clone https://github.com/tertiarycourses/TGS-2024042961-Develop-Multi-AI-Agent-Applications-with-Gemini-Agent-ADK.git

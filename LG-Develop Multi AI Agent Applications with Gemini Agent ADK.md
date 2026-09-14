@@ -153,7 +153,7 @@ A working Python 3.13 project with google-adk installed, a validated GOOGLE_API_
 
 **Step-by-step**
 
-1. Clone the course lab repository
+1. Clone the course lab repository from GitHub
 
    ```bash
    git clone https://github.com/tertiarycourses/TGS-2024042961-Develop-Multi-AI-Agent-Applications-with-Gemini-Agent-ADK.git
